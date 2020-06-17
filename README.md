@@ -6,6 +6,13 @@ A highly customizable oscilloscope for web Audio that supports any source suppor
 ```bash
 yarn add webaudio-oscilloscope
 ```
+
+or Include the JavaScript file from: 
+
+```html
+<script src="https://unpkg.com/webaudio-oscilloscope@1.3.3/dist/index.js"></script>
+```
+
 ### Example use: 
 First create a canvas element in your page: 
 ```html
