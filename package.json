@@ -1,6 +1,6 @@
 {
   "name": "webaudio-oscilloscope",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "main": "index.js",
   "license": "MIT",
   "repository": {
@@ -14,7 +14,6 @@
   "scripts": {
     "run-example": "parcel example/index.html",
     "build": "parcel build index.js",
-    "watch": "parcel watch index.js",
-    "publish": "yarn publish"
+    "watch": "parcel watch index.js"
   }
 }

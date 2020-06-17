@@ -104,3 +104,5 @@ You can write plugin for this using the `init` and `primer` functions.
 ## Contributing:
 
 Feel free to contribute by creating custom plugins for oscilloscopes (init and primer duo) or contribute by creating new styles of Oscilloscopes. 
+
+Made with 🖤 and JS.
