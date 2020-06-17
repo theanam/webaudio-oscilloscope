@@ -3,11 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <title>WebAudio Oscilloscope Example</title>
 </head>
 <body>
-    <button class="btn start">Start</button><button class="btn pause">Pause</button><button class="btn reset">Reset</button><br>
-    <canvas class="cvs" width="200px" height="60px"></canvas>
+    <div class="container">
+        <h3>WebAudio Oscilloscope</h3>
+        <div class="controls">
+            <button class="btn start">Start</button>
+            <button class="btn pause">Pause</button>
+            <button class="btn reset">Reset</button>
+        </div>
+        <canvas class="cvs" width="250px" height="70px"></canvas>
+    </div>
     <script src="app.js"></script>
 </body>
 </html>
