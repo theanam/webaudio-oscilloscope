@@ -1,7 +1,6 @@
 "use strict";
 import * as _ct from "./tools/canvas_tools";
-export default class AudioOSC{
-    constructor(ctx, cvs, source, dest = null, fft = 2048, init = _ct._initCvs, primer = _ct._primer){
+export default function(ctx, cvs, source, dest = null, fft = 2048, init = _ct._initCvs, primer = _ct._primer){
         this.actx   = ctx;
         this.FFT    = fft;
         this.cvs    = cvs;
@@ -20,25 +19,24 @@ export default class AudioOSC{
         this.u8ar = new Uint8Array(this.FFT);
         this.cctx = this.cvs.getContext("2d");
         this.init(this.cctx,this.WIDTH,this.HEIGHT);
-    }
-    draw = () =>{
-        if(!this.paused) requestAnimationFrame(this.draw);
-        this.cctx.clearRect(0 , 0, this.WIDTH, this.HEIGHT);
-        this.primer(this.cctx, this.WIDTH, this.HEIGHT);
-        this.anl.getByteTimeDomainData(this.u8ar);
-        _ct._drawRawOsc(this.cctx, this.u8ar, this.WIDTH, this.HEIGHT);
-    }
-    start = () => {
-        this.paused = false;
-        this.draw();
-    }
-    pause = () =>{
-        this.paused = true;
-    }
-    reset = () =>{
-        this.u8ar = new Uint8Array().fill(0);
-        this.cctx.clearRect(0 , 0, this.WIDTH, this.HEIGHT);
-        this.primer(this.cctx, this.WIDTH, this.HEIGHT);
-        _ct._drawRawOsc(this.cctx, this.u8ar, this.WIDTH, this.HEIGHT);
-    }
+        this.draw = () =>{
+            if(!this.paused) requestAnimationFrame(this.draw);
+            this.cctx.clearRect(0 , 0, this.WIDTH, this.HEIGHT);
+            this.primer(this.cctx, this.WIDTH, this.HEIGHT);
+            this.anl.getByteTimeDomainData(this.u8ar);
+            _ct._drawRawOsc(this.cctx, this.u8ar, this.WIDTH, this.HEIGHT);
+        }
+        this.start = () => {
+            this.paused = false;
+            this.draw();
+        }
+        this.pause = () =>{
+            this.paused = true;
+        }
+        this.reset = () =>{
+            this.u8ar = new Uint8Array().fill(0);
+            this.cctx.clearRect(0 , 0, this.WIDTH, this.HEIGHT);
+            this.primer(this.cctx, this.WIDTH, this.HEIGHT);
+            _ct._drawRawOsc(this.cctx, this.u8ar, this.WIDTH, this.HEIGHT);
+        }
 }

@@ -155,7 +155,7 @@ function _drawRawOsc(ctx, data, width, height) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.default = _default;
 
 var _ct = _interopRequireWildcard(require("./tools/canvas_tools"));
 
@@ -163,52 +163,13 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var AudioOSC = function AudioOSC(ctx, cvs, source) {
+function _default(ctx, cvs, source) {
   var _this = this;
 
   var dest = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
   var fft = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 2048;
   var init = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : _ct._initCvs;
   var primer = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : _ct._primer;
-
-  _classCallCheck(this, AudioOSC);
-
-  _defineProperty(this, "draw", function () {
-    if (!_this.paused) requestAnimationFrame(_this.draw);
-
-    _this.cctx.clearRect(0, 0, _this.WIDTH, _this.HEIGHT);
-
-    _this.primer(_this.cctx, _this.WIDTH, _this.HEIGHT);
-
-    _this.anl.getByteTimeDomainData(_this.u8ar);
-
-    _ct._drawRawOsc(_this.cctx, _this.u8ar, _this.WIDTH, _this.HEIGHT);
-  });
-
-  _defineProperty(this, "start", function () {
-    _this.paused = false;
-
-    _this.draw();
-  });
-
-  _defineProperty(this, "pause", function () {
-    _this.paused = true;
-  });
-
-  _defineProperty(this, "reset", function () {
-    _this.u8ar = new Uint8Array().fill(0);
-
-    _this.cctx.clearRect(0, 0, _this.WIDTH, _this.HEIGHT);
-
-    _this.primer(_this.cctx, _this.WIDTH, _this.HEIGHT);
-
-    _ct._drawRawOsc(_this.cctx, _this.u8ar, _this.WIDTH, _this.HEIGHT);
-  });
-
   this.actx = ctx;
   this.FFT = fft;
   this.cvs = cvs;
@@ -231,9 +192,39 @@ var AudioOSC = function AudioOSC(ctx, cvs, source) {
   this.u8ar = new Uint8Array(this.FFT);
   this.cctx = this.cvs.getContext("2d");
   this.init(this.cctx, this.WIDTH, this.HEIGHT);
-};
 
-exports.default = AudioOSC;
+  this.draw = function () {
+    if (!_this.paused) requestAnimationFrame(_this.draw);
+
+    _this.cctx.clearRect(0, 0, _this.WIDTH, _this.HEIGHT);
+
+    _this.primer(_this.cctx, _this.WIDTH, _this.HEIGHT);
+
+    _this.anl.getByteTimeDomainData(_this.u8ar);
+
+    _ct._drawRawOsc(_this.cctx, _this.u8ar, _this.WIDTH, _this.HEIGHT);
+  };
+
+  this.start = function () {
+    _this.paused = false;
+
+    _this.draw();
+  };
+
+  this.pause = function () {
+    _this.paused = true;
+  };
+
+  this.reset = function () {
+    _this.u8ar = new Uint8Array().fill(0);
+
+    _this.cctx.clearRect(0, 0, _this.WIDTH, _this.HEIGHT);
+
+    _this.primer(_this.cctx, _this.WIDTH, _this.HEIGHT);
+
+    _ct._drawRawOsc(_this.cctx, _this.u8ar, _this.WIDTH, _this.HEIGHT);
+  };
+}
 },{"./tools/canvas_tools":"../tools/canvas_tools.js"}],"app.js":[function(require,module,exports) {
 "use strict";
 
@@ -288,7 +279,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51234" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52628" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
