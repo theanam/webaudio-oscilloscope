@@ -1,14 +1,16 @@
 {
   "name": "webaudio-oscilloscope",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "main": "index.js",
   "license": "MIT",
   "repository": {
+    "type": "git",
     "url": "git@github.com:theanam/webaudio-oscilloscope.git"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.4"
   },
+  "homepage": "https://github.com/theanam/webaudio-oscilloscope",
   "scripts": {
     "run-example": "parcel example/index.html",
     "build": "parcel build index.js",
