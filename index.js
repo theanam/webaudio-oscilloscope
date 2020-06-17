@@ -1,6 +1,6 @@
 "use strict";
 import * as _ct from "./tools/canvas_tools";
-export default function(ctx, cvs, source, dest = null, fft = 2048, init = _ct._initCvs, primer = _ct._primer){
+export default function(ctx, cvs, source, dest = null, fft = 2048, init = null, primer = null){
         this.actx   = ctx;
         this.FFT    = fft;
         this.cvs    = cvs;
