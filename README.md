@@ -2,6 +2,8 @@
 
 A highly customizable oscilloscope for web Audio that supports any source supported by the browser, and renders on a HTML5 canvas. 
 
+[Try it yourself](https://theanam.github.io/webaudio-oscilloscope/)
+
 ### Installation
 ```bash
 yarn add webaudio-oscilloscope
