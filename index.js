@@ -4,8 +4,8 @@ export default function(ctx, cvs, source, dest = null, fft = 2048, init = _ct._i
         this.actx   = ctx;
         this.FFT    = fft;
         this.cvs    = cvs;
-        this.init   = init;
-        this.primer = primer;
+        this.init   = init   || _ct._initCvs;
+        this.primer = primer || _ct._primer;
         this.paused = false;
         this.anl    = this.actx.createAnalyser();
         // Configure Analyzer

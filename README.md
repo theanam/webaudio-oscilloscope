@@ -103,7 +103,25 @@ function primer(ctx, width, height){
     ctx.fillRect(0,0,width,height);
 }
 ```
-
+For example: the graph in the example is the result of this primer function: 
+```js
+function fancyGraph(ctx,width,height){
+    let backstrokeStyle = ctx.strokeStyle;
+    ctx.strokeStyle = "#444";
+    ctx.fillRect(0,0,width,height);
+    ctx.beginPath();
+    for(let i=0; i<width; i+=10){
+        ctx.moveTo(i,0);
+        ctx.lineTo(i,height);
+    }
+    for(let j=0; j<height; j+=10){
+        ctx.moveTo(0,j);
+        ctx.lineTo(width,j);
+    }
+    ctx.stroke();
+    ctx.strokeStyle = backstrokeStyle;
+}
+```
 both The function exacly gets 3 arguments, `context` (The canvas rendering context), `width` (the canvas width), `height` (the canvas height). You don't need to worry where these values will come from, just assume that they will be available in the function context.
 
 ## Plugins
