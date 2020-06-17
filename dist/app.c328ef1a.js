@@ -167,10 +167,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _classPrivateFieldGet(receiver, privateMap) { var descriptor = privateMap.get(receiver); if (!descriptor) { throw new TypeError("attempted to get private field on non-instance"); } if (descriptor.get) { return descriptor.get.call(receiver); } return descriptor.value; }
-
-function _classPrivateFieldSet(receiver, privateMap, value) { var descriptor = privateMap.get(receiver); if (!descriptor) { throw new TypeError("attempted to set private field on non-instance"); } if (descriptor.set) { descriptor.set.call(receiver, value); } else { if (!descriptor.writable) { throw new TypeError("attempted to set read only private field"); } descriptor.value = value; } return value; }
-
 var AudioOSC = function AudioOSC(ctx, cvs, source) {
   var _this = this;
 
@@ -181,150 +177,63 @@ var AudioOSC = function AudioOSC(ctx, cvs, source) {
 
   _classCallCheck(this, AudioOSC);
 
-  _actx.set(this, {
-    writable: true,
-    value: null
-  });
-
-  _cctx.set(this, {
-    writable: true,
-    value: null
-  });
-
-  _anl.set(this, {
-    writable: true,
-    value: null
-  });
-
-  _cvs.set(this, {
-    writable: true,
-    value: null
-  });
-
-  _paused.set(this, {
-    writable: true,
-    value: false
-  });
-
-  _WIDTH.set(this, {
-    writable: true,
-    value: 300
-  });
-
-  _HEIGHT.set(this, {
-    writable: true,
-    value: 150
-  });
-
-  _FFT.set(this, {
-    writable: true,
-    value: 2048
-  });
-
-  _u8ar.set(this, {
-    writable: true,
-    value: null
-  });
-
-  _init.set(this, {
-    writable: true,
-    value: null
-  });
-
-  _primer.set(this, {
-    writable: true,
-    value: null
-  });
-
   _defineProperty(this, "draw", function () {
-    if (!_classPrivateFieldGet(_this, _paused)) requestAnimationFrame(_this.draw);
+    if (!_this.paused) requestAnimationFrame(_this.draw);
 
-    _classPrivateFieldGet(_this, _cctx).clearRect(0, 0, _classPrivateFieldGet(_this, _WIDTH), _classPrivateFieldGet(_this, _HEIGHT));
+    _this.cctx.clearRect(0, 0, _this.WIDTH, _this.HEIGHT);
 
-    _classPrivateFieldGet(_this, _primer).call(_this, _classPrivateFieldGet(_this, _cctx), _classPrivateFieldGet(_this, _WIDTH), _classPrivateFieldGet(_this, _HEIGHT));
+    _this.primer(_this.cctx, _this.WIDTH, _this.HEIGHT);
 
-    _classPrivateFieldGet(_this, _anl).getByteTimeDomainData(_classPrivateFieldGet(_this, _u8ar));
+    _this.anl.getByteTimeDomainData(_this.u8ar);
 
-    _ct._drawRawOsc(_classPrivateFieldGet(_this, _cctx), _classPrivateFieldGet(_this, _u8ar), _classPrivateFieldGet(_this, _WIDTH), _classPrivateFieldGet(_this, _HEIGHT));
+    _ct._drawRawOsc(_this.cctx, _this.u8ar, _this.WIDTH, _this.HEIGHT);
   });
 
   _defineProperty(this, "start", function () {
-    _classPrivateFieldSet(_this, _paused, false);
+    _this.paused = false;
 
     _this.draw();
   });
 
   _defineProperty(this, "pause", function () {
-    _classPrivateFieldSet(_this, _paused, true);
+    _this.paused = true;
   });
 
   _defineProperty(this, "reset", function () {
-    _classPrivateFieldSet(_this, _u8ar, new Uint8Array().fill(0));
+    _this.u8ar = new Uint8Array().fill(0);
 
-    _classPrivateFieldGet(_this, _cctx).clearRect(0, 0, _classPrivateFieldGet(_this, _WIDTH), _classPrivateFieldGet(_this, _HEIGHT));
+    _this.cctx.clearRect(0, 0, _this.WIDTH, _this.HEIGHT);
 
-    _classPrivateFieldGet(_this, _primer).call(_this, _classPrivateFieldGet(_this, _cctx), _classPrivateFieldGet(_this, _WIDTH), _classPrivateFieldGet(_this, _HEIGHT));
+    _this.primer(_this.cctx, _this.WIDTH, _this.HEIGHT);
 
-    _ct._drawRawOsc(_classPrivateFieldGet(_this, _cctx), _classPrivateFieldGet(_this, _u8ar), _classPrivateFieldGet(_this, _WIDTH), _classPrivateFieldGet(_this, _HEIGHT));
+    _ct._drawRawOsc(_this.cctx, _this.u8ar, _this.WIDTH, _this.HEIGHT);
   });
 
-  _classPrivateFieldSet(this, _actx, ctx);
+  this.actx = ctx;
+  this.FFT = fft;
+  this.cvs = cvs;
+  this.init = init;
+  this.primer = primer;
+  this.paused = false;
+  this.anl = this.actx.createAnalyser(); // Configure Analyzer
 
-  _classPrivateFieldSet(this, _FFT, fft);
+  this.anl.fftSize = this.FFT;
+  source.connect(this.anl);
+  if (dest) this.anl.connect(dest); // Set up Canvas
 
-  _classPrivateFieldSet(this, _cvs, cvs);
-
-  _classPrivateFieldSet(this, _init, init);
-
-  _classPrivateFieldSet(this, _primer, primer);
-
-  _classPrivateFieldSet(this, _anl, _classPrivateFieldGet(this, _actx).createAnalyser()); // Configure Analyzer
-
-
-  _classPrivateFieldGet(this, _anl).fftSize = _classPrivateFieldGet(this, _FFT);
-  source.connect(_classPrivateFieldGet(this, _anl));
-  if (dest) _classPrivateFieldGet(this, _anl).connect(dest); // Set up Canvas
-
-  var _classPrivateFieldGet2 = _classPrivateFieldGet(this, _cvs),
-      _classPrivateFieldGet3 = _classPrivateFieldGet2.width,
-      width = _classPrivateFieldGet3 === void 0 ? 300 : _classPrivateFieldGet3,
-      _classPrivateFieldGet4 = _classPrivateFieldGet2.height,
-      height = _classPrivateFieldGet4 === void 0 ? 150 : _classPrivateFieldGet4;
-
-  _classPrivateFieldSet(this, _WIDTH, width);
-
-  _classPrivateFieldSet(this, _HEIGHT, height);
-
-  _classPrivateFieldSet(this, _u8ar, new Uint8Array(_classPrivateFieldGet(this, _FFT)));
-
-  _classPrivateFieldSet(this, _cctx, _classPrivateFieldGet(this, _cvs).getContext("2d"));
-
-  _classPrivateFieldGet(this, _init).call(this, _classPrivateFieldGet(this, _cctx), _classPrivateFieldGet(this, _WIDTH), _classPrivateFieldGet(this, _HEIGHT));
+  var _this$cvs = this.cvs,
+      _this$cvs$width = _this$cvs.width,
+      width = _this$cvs$width === void 0 ? 300 : _this$cvs$width,
+      _this$cvs$height = _this$cvs.height,
+      height = _this$cvs$height === void 0 ? 150 : _this$cvs$height;
+  this.WIDTH = width;
+  this.HEIGHT = height;
+  this.u8ar = new Uint8Array(this.FFT);
+  this.cctx = this.cvs.getContext("2d");
+  this.init(this.cctx, this.WIDTH, this.HEIGHT);
 };
 
 exports.default = AudioOSC;
-
-var _actx = new WeakMap();
-
-var _cctx = new WeakMap();
-
-var _anl = new WeakMap();
-
-var _cvs = new WeakMap();
-
-var _paused = new WeakMap();
-
-var _WIDTH = new WeakMap();
-
-var _HEIGHT = new WeakMap();
-
-var _FFT = new WeakMap();
-
-var _u8ar = new WeakMap();
-
-var _init = new WeakMap();
-
-var _primer = new WeakMap();
 },{"./tools/canvas_tools":"../tools/canvas_tools.js"}],"app.js":[function(require,module,exports) {
 "use strict";
 
@@ -379,7 +288,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65327" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51234" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
