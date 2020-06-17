@@ -34,6 +34,7 @@ export default function(ctx, cvs, source, dest = null, fft = 2048, init = _ct._i
             this.paused = true;
         }
         this.reset = () =>{
+            this.paused = true;
             this.u8ar = new Uint8Array().fill(0);
             this.cctx.clearRect(0 , 0, this.WIDTH, this.HEIGHT);
             this.primer(this.cctx, this.WIDTH, this.HEIGHT);
