@@ -1,8 +1,8 @@
-function _initCvs(ctx,width,height){
+function _initCvs(ctx, width, height){
     ctx.fillStyle   = "#000";
     ctx.strokeStyle = "#0f0";
 }
-function _primer(ctx,width,height){
+function _primer(ctx, width, height){
     ctx.fillRect(0,0,width,height);
 }
 function _drawRawOsc(ctx,data,width,height){
