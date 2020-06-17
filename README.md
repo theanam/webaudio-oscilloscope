@@ -12,7 +12,7 @@ yarn add webaudio-oscilloscope
 or Include the JavaScript file from: 
 
 ```html
-<script src="https://unpkg.com/webaudio-oscilloscope@1.3.7/dist/index.js"></script>
+<script src="https://unpkg.com/webaudio-oscilloscope@1.3.8/dist/index.js"></script>
 ```
 
 ### Example use: 
