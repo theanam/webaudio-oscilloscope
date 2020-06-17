@@ -1,6 +1,16 @@
 {
   "name": "webaudio-oscilloscope",
-  "version": "1.3.4",
+  "version": "1.3.5",
+  "keywords": [
+    "webaudio",
+    "oscilloscope",
+    "level meter",
+    "audio meter",
+    "audio visualizer",
+    "web-audio",
+    "audio",
+    "html5 audio"
+  ],
   "main": "index.js",
   "license": "MIT",
   "repository": {
@@ -10,7 +20,7 @@
   "devDependencies": {
     "parcel-bundler": "^1.12.4"
   },
-  "homepage": "https://github.com/theanam/webaudio-oscilloscope",
+  "homepage": "https://theanam.github.io/webaudio-oscilloscope/",
   "scripts": {
     "run-example": "parcel example/index.html -d temp-example",
     "build-example":"parcel build example/index.html -d dist-example --public-url /webaudio-oscilloscope",
