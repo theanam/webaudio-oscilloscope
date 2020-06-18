@@ -2,7 +2,7 @@
 
 A highly customizable oscilloscope for web Audio that supports any source supported by the browser, and renders on a HTML5 canvas. 
 
-[Try it yourself](https://theanam.github.io/webaudio-oscilloscope/)
+## [Try The Live Demo](https://theanam.github.io/webaudio-oscilloscope/)
 
 ### Installation
 ```bash
@@ -12,7 +12,7 @@ yarn add webaudio-oscilloscope
 or Include the JavaScript file from: 
 
 ```html
-<script src="https://unpkg.com/webaudio-oscilloscope@1.3.9/dist/index.js"></script>
+<script src="https://unpkg.com/webaudio-oscilloscope@1.3.10/dist/index.js"></script>
 ```
 
 ### Example use: 
@@ -25,28 +25,18 @@ In your JavaScript File:
 
 ```js
 import Oscilloscope from "webaudio-oscilloscope"
-    function startOsc(){
-        /* wrap the whole thing in Try catch so that all the
-        errors, failure, unsupported API can be handled once.
-        */
-        try{
-            let ctx = new AudioContext();
-            let cvs = document.querySelector(".osc");
-            navigator.mediaDevices.getUserMedia({audio: true})
-                .then(stream=>{
-                    // Works with any supported source
-                    let src = ctx.createMediaStreamSource(stream);
-                    let osc = new Oscilloscope(ctx, cvs, src);
-                    osc.start();
-                });
-            }
-        catch(e){
-            console.log("Could not initialize Oscilloscope");
-        }
-    }
-    /* Do not start oscilloscope before any user interaction.
-    It will fail*/
-    document.querySelector(".start").addEventListener("click",startOsc);
+function startOsc(){
+    let ctx = new AudioContext();
+    let cvs = document.querySelector(".osc");
+    navigator.mediaDevices.getUserMedia({audio: true})
+        .then(stream=>{
+            // Works with any supported source
+            let src = ctx.createMediaStreamSource(stream);
+            let osc = new Oscilloscope(ctx, cvs, src);
+            osc.start();
+        });
+}
+document.querySelector(".start").addEventListener("click",startOsc);
 ```
 
 ## Reference: 
@@ -60,7 +50,7 @@ Constructor:
 Argument | Required | Default | Description |
 ---------|----------| --------|-------------|
 audioContext | true | null    | The Audio Context to use. [See MDN](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext)|
-Canvas | true | null | The canvas to render the Oscilloscope in|
+Canvas | true | null | The HTML5 canvas element to render the Oscilloscope in|
 AudioSource | true | null | The Audio Source to listen to. [See MDN](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext)|
 Audio Destination | false | null | The Node to pass the output to. e.g destination or any additional node|
 fft | false | 2048 | The fft size for the AnalyserNode. The larger the number the smoother the graph the more resource it will consume|
@@ -125,11 +115,9 @@ function fancyGraph(ctx,width,height){
 both The function exacly gets 3 arguments, `context` (The canvas rendering context), `width` (the canvas width), `height` (the canvas height). You don't need to worry where these values will come from, just assume that they will be available in the function context.
 
 ## Plugins
-
 You can write plugin for this using the `init` and `primer` functions. 
 
 ## Contributing:
-
-Feel free to contribute by creating custom plugins for oscilloscopes (init and primer duo) or contribute by creating new styles of Oscilloscopes. 
+This package is released under the MIT license Feel free to contribute.
 
 Made with 🖤 and JS.

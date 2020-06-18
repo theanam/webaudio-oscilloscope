@@ -35,7 +35,7 @@ export default function(ctx, cvs, source, dest = null, fft = 2048, init = null, 
         }
         this.reset = () =>{
             this.paused = true;
-            this.u8ar = new Uint8Array().fill(0);
+            this.u8ar = new Uint8Array(this.FFT).fill(0);
             this.cctx.clearRect(0 , 0, this.WIDTH, this.HEIGHT);
             this.primer(this.cctx, this.WIDTH, this.HEIGHT);
             _ct._drawRawOsc(this.cctx, this.u8ar, this.WIDTH, this.HEIGHT);
