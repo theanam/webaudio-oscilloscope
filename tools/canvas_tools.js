@@ -7,7 +7,7 @@ function _primer(ctx, width, height){
     let backupStroke = ctx.strokeStyle;
     ctx.strokeStyle = "#777";
     ctx.beginPath();
-    ctx.moveTo(0,height / 2);
+    ctx.moveTo(0, height / 2);
     ctx.lineTo(width, height / 2);
     ctx.stroke();
     ctx.strokeStyle = backupStroke;
