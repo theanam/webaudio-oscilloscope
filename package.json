@@ -18,6 +18,8 @@
     "url": "git@github.com:theanam/webaudio-oscilloscope.git"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
     "parcel-bundler": "^1.12.4"
   },
   "homepage": "https://theanam.github.io/webaudio-oscilloscope/",
@@ -26,5 +28,10 @@
     "build-example": "parcel build example/index.html -d dist-example --public-url /webaudio-oscilloscope",
     "build": "parcel build index.js",
     "watch": "parcel watch index.js"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
   }
 }
