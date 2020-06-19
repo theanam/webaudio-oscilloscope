@@ -86,7 +86,7 @@ function primer(ctx, width, height){
     ctx.fillRect(0,0,width,height);
 }
 ```
-For example: the graph in the example is the result of this primer function: 
+For example: If you want to render your oscilloscope on a graph, try this primer function: 
 ```js
 function fancyGraph(ctx,width,height){
     let backstrokeStyle = ctx.strokeStyle;
