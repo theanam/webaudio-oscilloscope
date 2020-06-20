@@ -21,7 +21,7 @@ In your JavaScript File:
 ```js
 import Oscilloscope from "webaudio-oscilloscope";
 function startOsc(){
-    let ctx = new AudioContext();
+    let ctx = new (window.AudioContext || window.webkitAudioContext)();
     let cvs = document.querySelector(".osc");
     navigator.mediaDevices.getUserMedia({audio: true})
         .then(stream=>{
@@ -34,7 +34,7 @@ function startOsc(){
 document.querySelector(".start").addEventListener("click",startOsc);
 ```
 
-Since Creating Oscilloscope from media stream is common user case, There's a syntactic sugar for this. So the above code can be written like:
+Since Creating *Oscilloscope from mediaStream* is common user case, There's a shorthand function for this.The above code can be written like:
 
 ```js
 import {MediaStreamOscilloscope} from "webaudio-oscilloscope";
