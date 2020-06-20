@@ -5,4 +5,4 @@ parcelRequire=function(e,r,t,n){var i,o="function"==typeof parcelRequire&&parcel
 },{"./tools/canvas_tools":"wCTl"}],"A2T1":[function(require,module,exports) {
 "use strict";var e=t(require("../index"));function t(e){return e&&e.__esModule?e:{default:e}}function r(e,t,r){var n=e.strokeStyle;e.strokeStyle="#444",e.fillRect(0,0,t,r),e.beginPath();for(var o=0;o<t;o+=10)e.moveTo(o,0),e.lineTo(o,r);for(var u=0;u<r;u+=10)e.moveTo(0,u),e.lineTo(t,u);e.stroke(),e.strokeStyle=n}function n(){var t=new AudioContext,n=document.querySelector(".cvs");navigator.mediaDevices.getUserMedia({audio:!0}).then(function(o){var u=t.createMediaStreamSource(o),a=new e.default(t,n,u,null,2048,null,r);a.start(),document.querySelector(".btn.pause").addEventListener("click",a.pause),document.querySelector(".btn.reset").addEventListener("click",a.reset)})}document.querySelector(".start").addEventListener("click",n);
 },{"../index":"S3PC"}]},{},["A2T1"], null)
-//# sourceMappingURL=/webaudio-oscilloscope/app.e016a7d6.js.map
+//# sourceMappingURL=/webaudio-oscilloscope/app.2075f6c2.js.map
