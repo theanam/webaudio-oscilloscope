@@ -37,13 +37,13 @@ document.querySelector(".start").addEventListener("click",startOsc);
 Constructor: 
 
 ```js
- new Oscilloscope(AudioContext, Canvas, AudioSource, AudioDestination, [fft, init,primer])
+ new Oscilloscope(AudioContext, CanvasElement, AudioSource, AudioDestination, [fft, init,primer])
 ```
 
 Argument | Required | Default | Description |
 ---------|----------| --------|-------------|
 audioContext | true | null    | The Audio Context to use. [See MDN](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext)|
-Canvas | true | null | The HTML5 canvas element to render the Oscilloscope in|
+CanvasElement | true | null | The HTML5 canvas element to render the Oscilloscope in|
 AudioSource | true | null | The Audio Source to listen to. [See MDN](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext)|
 Audio Destination | false | null | The Node to pass the output to. e.g destination or any additional node|
 fft | false | 2048 | The fft size for the AnalyserNode. The larger the number the smoother the graph the more resource it will consume|

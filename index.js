@@ -1,17 +1,17 @@
 "use strict";
 import * as _ct from "./tools/canvas_tools";
-export default function(ctx, cvs, source, dest = null, fft = 2048, init = null, primer = null){
-        this.actx   = ctx;
-        this.FFT    = fft;
-        this.cvs    = cvs;
-        this.init   = init   || _ct._initCvs;
-        this.primer = primer || _ct._primer;
+export default function(audioContext, canvasElement, audioSource, audioDest = null, analyzerFFT = 2048, canvasInitFunction = null, drawingPrimerFunction = null){
+        this.actx   = audioContext;
+        this.FFT    = analyzerFFT;
+        this.cvs    = canvasElement;
+        this.init   = canvasInitFunction    || _ct._initCvs;
+        this.primer = drawingPrimerFunction || _ct._primer;
         this.paused = false;
         this.anl    = this.actx.createAnalyser();
         // Configure Analyzer
         this.anl.fftSize = this.FFT;
-        source.connect(this.anl);
-        if(dest) this.anl.connect(dest);
+        audioSource.connect(this.anl);
+        if(audioDest) this.anl.connect(audioDest);
         // Set up Canvas
         let {width = 300, height = 150} = this.cvs;
         this.WIDTH  = width;
