@@ -19,9 +19,9 @@ First create a canvas element in your page:
 In your JavaScript File:
 
 ```js
-import Oscilloscope from "webaudio-oscilloscope";
+import Oscilloscope,{createAudioContext} from "webaudio-oscilloscope";
 function startOsc(){
-    let ctx = new (window.AudioContext || window.webkitAudioContext)();
+    let ctx = createAudioContext();
     let cvs = document.querySelector(".osc");
     navigator.mediaDevices.getUserMedia({audio: true})
         .then(stream=>{
@@ -34,7 +34,9 @@ function startOsc(){
 document.querySelector(".start").addEventListener("click",startOsc);
 ```
 
-Since Creating *Oscilloscope from mediaStream* is common user case, There's a shorthand function for this.The above code can be written like:
+*This package has an utility function, `createAudioContext` to create an audio context (to avoid dealing with `createAudioContext` and `webkitCreateAudioContext` variations)*
+
+#### Since Creating *Oscilloscope from `mediaStream`*  is a very common user case, There's a shorthand function for this.The above code can also be written like:
 
 ```js
 import {MediaStreamOscilloscope} from "webaudio-oscilloscope";
@@ -74,19 +76,18 @@ It's a common use case to create Oscilloscope from Media Stream, Hence, there's 
 import {MediaStreamOscilloscope} from "webaudio-oscilloscope";
 new MediaStreamOscilloscope(mediaStream, CanvasElement, AudioDestination, [fft, init,primer]); 
 ```
-This function takes a `mediaStream` object instead of an `audioContext` and `audioSource`, the rest of the parameters are the same. This also returns an Oscilloscope object.
+This function takes a `mediaStream` object instead of an `audioContext` and `audioSource`, the rest of the parameters are the same. This also produces an `Oscilloscope` instance.
 
 ### Oscilloscope Methods: 
 
 #### start(): 
-Starts the oscilloscope. Does not take any arguments. 
+Starts the oscilloscope. Does not take any arguments. Running start on an already running Oscilloscope does not have any effect.
 
 #### pause(): 
-Pauses the Oscilloscope on the last frame. Paused Oscilloscope can be started using the `start()` method. Does not take any arguments.
+Pauses the Oscilloscope on the last frame. Paused Oscilloscope can be started using the `start()` method. Does not take any arguments. This does not affect the media source. Just pauses the Oscilloscope.
 
 #### reset():
-Resets the oscilloscope canvas. Does not take any arguments. Reset oscilloscope can be started using the `start()` function.
-
+Resets the oscilloscope canvas. Does not take any arguments. Reset oscilloscope can be started using the `start()` function. Does not affect the media source.
 
 ### Changing the look and feel: 
 
@@ -96,7 +97,7 @@ The Oscilloscope can be customized by using, the `init` and `primer` arguments i
 
 #### init() [Function]: 
 
-> If you want to change the colors of the oscilloscope, use a custom init function. Oscilloscope background is filled with the `fillStyle` of the canvas, and `strokeStyle` represents the graph color. 
+> If you want to change the colors or line width of the oscilloscope, use a custom `init` function. Oscilloscope background is filled with the `fillStyle` property of the canvas 2d context, and `strokeStyle` property affetcs the graph color. 
 
 You can create a function like the one below and pass it in the constructor. In fact this is the default init function. You can do stuff like setting the default fill and stroke colors,setting line width etc. For example, to set the fill and stroke style of the canvas: 
 

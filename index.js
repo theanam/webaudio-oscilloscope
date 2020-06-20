@@ -47,13 +47,17 @@ function Oscilloscope(audioContext, audioSource, canvasElement, audioDest = null
         }
 }
 
-function MediaStreamOscilloscope(mediaStream,canvasElement,audioDest = null, analyzerFFT = 2048, canvasInitFunction = null, drawingPrimerFunction = null){
-    let ctx = new (window.AudioContext || window.webkitAudioContext)();
+function createAudioContext(){
+    return new (window.AudioContext || window.webkitAudioContext)();
+}
+
+function MediaStreamOscilloscope(mediaStream, canvasElement, audioDest = null, analyzerFFT = 2048, canvasInitFunction = null, drawingPrimerFunction = null){
+    let ctx = createAudioContext();
     let src = ctx.createMediaStreamSource(mediaStream);
     return new Oscilloscope(ctx, src, canvasElement, audioDest, analyzerFFT, canvasInitFunction, drawingPrimerFunction);
 }
-
 export {
     Oscilloscope as default,
-    MediaStreamOscilloscope
+    MediaStreamOscilloscope,
+    createAudioContext
 }
