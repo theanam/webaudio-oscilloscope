@@ -4,6 +4,8 @@ A highly customizable oscilloscope for web Audio that supports any source suppor
 
 ## [Try The Live Demo](https://theanam.github.io/webaudio-oscilloscope/)
 
+> If you are using v1 and planning to move to v2, the constructor changes a little bit.
+
 ### Installation
 ```bash
 yarn add webaudio-oscilloscope
@@ -17,7 +19,7 @@ First create a canvas element in your page:
 In your JavaScript File:
 
 ```js
-import Oscilloscope from "webaudio-oscilloscope"
+import Oscilloscope from "webaudio-oscilloscope";
 function startOsc(){
     let ctx = new AudioContext();
     let cvs = document.querySelector(".osc");
@@ -25,7 +27,22 @@ function startOsc(){
         .then(stream=>{
             // Works with any supported source
             let src = ctx.createMediaStreamSource(stream);
-            let osc = new Oscilloscope(ctx, cvs, src);
+            let osc = new Oscilloscope(ctx, src, cvs);
+            osc.start();
+        });
+}
+document.querySelector(".start").addEventListener("click",startOsc);
+```
+
+Since Creating Oscilloscope from media stream is common user case, There's a syntactic sugar for this. So the above code can be written like:
+
+```js
+import {MediaStreamOscilloscope} from "webaudio-oscilloscope";
+function startOsc(){
+    let cvs = document.querySelector(".osc");
+    navigator.mediaDevices.getUserMedia({audio: true})
+        .then(stream=>{
+            let osc = new MediaStreamOscilloscope(stream, cvs);
             osc.start();
         });
 }
@@ -34,21 +51,30 @@ document.querySelector(".start").addEventListener("click",startOsc);
 
 ## Reference: 
 
-Constructor: 
+### Constructor: 
 
 ```js
- new Oscilloscope(AudioContext, CanvasElement, AudioSource, AudioDestination, [fft, init,primer])
+import Oscilloscope from "webaudio-oscilloscope";
+ new Oscilloscope(AudioContext, AudioSource, CanvasElement, AudioDestination, [fft, init,primer])
 ```
 
 Argument | Required | Default | Description |
 ---------|----------| --------|-------------|
 audioContext | true | null    | The Audio Context to use. [See MDN](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext)|
-CanvasElement | true | null | The HTML5 canvas element to render the Oscilloscope in|
 AudioSource | true | null | The Audio Source to listen to. [See MDN](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext)|
+CanvasElement | true | null | The HTML5 canvas element to render the Oscilloscope in|
 Audio Destination | false | null | The Node to pass the output to. e.g destination or any additional node|
 fft | false | 2048 | The fft size for the AnalyserNode. The larger the number the smoother the graph the more resource it will consume|
 init | false | null | Function to run on the canvas before starting to draw. Gets called only once before starting the drawing Cycle. See below for details|
 primer | false | null | The function that gets caled before every render cycle. Useful for stying the Output| 
+
+### Oscilloscope from Media Stream:
+It's a common use case to create Oscilloscope from Media Stream, Hence, there's a short form. 
+```js
+import {MediaStreamOscilloscope} from "webaudio-oscilloscope";
+new MediaStreamOscilloscope(mediaStream, CanvasElement, AudioDestination, [fft, init,primer]); 
+```
+This function takes a `mediaStream` object instead of an `audioContext` and `audioSource`, the rest of the parameters are the same. This also returns an Oscilloscope object.
 
 ### Oscilloscope Methods: 
 
@@ -69,6 +95,9 @@ This directly relate to the *highly customizable* claim in the title. If you kno
 The Oscilloscope can be customized by using, the `init` and `primer` arguments in the constructor. If you need one of the two, just pass `null` for the other one. It will be ignored.
 
 #### init() [Function]: 
+
+> If you want to change the colors of the oscilloscope, use a custom init function. Oscilloscope background is filled with the `fillStyle` of the canvas, and `strokeStyle` represents the graph color. 
+
 You can create a function like the one below and pass it in the constructor. In fact this is the default init function. You can do stuff like setting the default fill and stroke colors,setting line width etc. For example, to set the fill and stroke style of the canvas: 
 
 ```js
