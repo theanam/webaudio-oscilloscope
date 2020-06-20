@@ -48,10 +48,7 @@ function Oscilloscope(audioContext, audioSource, canvasElement, audioDest = null
 }
 
 function MediaStreamOscilloscope(mediaStream,canvasElement,audioDest = null, analyzerFFT = 2048, canvasInitFunction = null, drawingPrimerFunction = null){
-    let ctx = null;
-    if(typeof window.AudioContext === "function") ctx = new window.AudioContext();
-    else if(typeof window.webkitAudioContext === "function") ctx = new window.webkitAudioContext();
-    else return null;
+    let ctx = new (window.AudioContext || window.webkitAudioContext)();
     let src = ctx.createMediaStreamSource(mediaStream);
     return new Oscilloscope(ctx, src, canvasElement, audioDest, analyzerFFT, canvasInitFunction, drawingPrimerFunction);
 }
