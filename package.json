@@ -1,6 +1,6 @@
 {
   "name": "webaudio-oscilloscope",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "keywords": [
     "webaudio",
     "oscilloscope",
@@ -34,7 +34,7 @@
     "build-example": "parcel build example/index.html -d dist-example --public-url /webaudio-oscilloscope",
     "build": "parcel build index.js",
     "watch": "parcel watch index.js",
-    "publish-page":"yarn build-example && npx gh-pages -d dist-example && rm -rf dist-example"
+    "publish-page": "yarn build-example && npx gh-pages -d dist-example && rm -rf dist-example"
   },
   "babel": {
     "presets": [

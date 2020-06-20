@@ -2,7 +2,7 @@
 
 A highly customizable oscilloscope for web Audio that supports any source supported by the browser, and renders on a HTML5 canvas. 
 
-## [Try The Live Demo](https://theanam.github.io/webaudio-oscilloscope/)
+## ✨[Try The Live Demo](https://theanam.github.io/webaudio-oscilloscope/)
 
 > If you are using v1 and planning to move to v2, the constructor changes a little bit.
 
