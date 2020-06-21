@@ -14,7 +14,7 @@ yarn add webaudio-oscilloscope
 Or you can link this file in your HTML:
 
 ```html
-<script src="https://unpkg.com/webaudio-oscilloscope@3.0.1/dist/index.js"></script>
+<script src="https://unpkg.com/webaudio-oscilloscope@3.1.1/dist/index.js"></script>
 ```
 If you include the script in your HTML file, you'll get a global object called `_osc`. You can acces the functionalities like: `_osc.Oscilloscope`.
 
@@ -27,11 +27,11 @@ First create a canvas element in your page:
 In your JavaScript File:
 
 ```js
-import {Oscilloscope, createAudioContext} from "webaudio-oscilloscope";
+import {Oscilloscope, createAudioContext, getUserMedia} from "webaudio-oscilloscope";
 function startOsc(){
     let ctx = createAudioContext();
     let cvs = document.querySelector(".osc");
-    navigator.mediaDevices.getUserMedia({audio: true})
+    getUserMedia({audio: true})
         .then(stream=>{
             // Works with any supported source
             let src = ctx.createMediaStreamSource(stream);
@@ -43,6 +43,8 @@ document.querySelector(".start").addEventListener("click",startOsc);
 ```
 
 *This package has an utility function, `createAudioContext` to create an audio context (to avoid dealing with `createAudioContext` and `webkitCreateAudioContext` variations)*
+
+> This package also has an utility function `getUSerMedia` that resolves with a Media stream, or resolves with a `null`. This deals with the different variations and prefixed versions of the `getUserMedia` API. 
 
 #### Since Creating *Oscilloscope from `mediaStream`*  is a very common user case, There's a shorthand function for this.The above code can also be written like:
 

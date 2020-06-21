@@ -56,8 +56,27 @@ function MediaStreamOscilloscope(mediaStream, canvasElement, audioDest = null, a
     let src = ctx.createMediaStreamSource(mediaStream);
     return new Oscilloscope(ctx, src, canvasElement, audioDest, analyzerFFT, canvasInitFunction, drawingPrimerFunction);
 }
+
+function getUserMedia(constraints){
+    return new Promise((resolve)=>{
+        if(navigator && navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
+            navigator.mediaDevices.getUserMedia(constraints).then(resolve).catch(()=>resolve(null));
+        }
+        else if(navigator.getUserMedia){
+            navigator.getUserMedia(constraints, resolve, ()=>resolve(null));
+        }
+        else if(navigator.webkitGetUserMedia){
+            navigator.webkitGetUserMedia(constraints, resolve, ()=>resolve(null));
+        }
+        else if(navigator.mozGetUserMedia){
+            navigator.mozGetUserMedia(constraints, resolve, ()=>resolve(null));
+        }
+        else resolve(null);
+    });
+}
 export {
     Oscilloscope,
     MediaStreamOscilloscope,
-    createAudioContext
+    createAudioContext,
+    getUserMedia
 }

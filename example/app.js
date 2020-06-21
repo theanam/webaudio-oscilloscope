@@ -1,4 +1,4 @@
-import {MediaStreamOscilloscope} from "../dist/index";
+import {MediaStreamOscilloscope, getUserMedia} from "../dist/index";
 function fancyGraph(ctx,width,height){
     let backstrokeStyle = ctx.strokeStyle;
     ctx.strokeStyle = "#444";
@@ -17,8 +17,9 @@ function fancyGraph(ctx,width,height){
 }
 function startOsc(){
     let cvs = document.querySelector(".cvs");
-    navigator.mediaDevices.getUserMedia({audio: true})
+    getUserMedia({audio: true})
         .then(stream=>{
+            console.log(stream);
             let osc = new MediaStreamOscilloscope(stream, cvs, null, 2048, null, fancyGraph);
             osc.start();
             document.querySelector(".btn.pause").addEventListener("click",osc.pause);
