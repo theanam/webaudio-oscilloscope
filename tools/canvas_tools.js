@@ -1,16 +1,18 @@
+const DEFAULT_FILL   = "#2d3436";
+const DEFAULT_STROKE = "#4cd137"; 
+const HLINE_COLOR    = "#7f8c8d";
 function _initCvs(ctx, width, height){
-    ctx.fillStyle   = "#000";
-    ctx.strokeStyle = "#0f0";
+    ctx.fillStyle   = DEFAULT_FILL;
+    ctx.strokeStyle = DEFAULT_STROKE;
 }
 function _primer(ctx, width, height){
     ctx.fillRect(0,0,width,height);
-    let backupStroke = ctx.strokeStyle;
-    ctx.strokeStyle = "#777";
+    ctx.strokeStyle = HLINE_COLOR;
     ctx.beginPath();
     ctx.moveTo(0, height / 2);
     ctx.lineTo(width, height / 2);
     ctx.stroke();
-    ctx.strokeStyle = backupStroke;
+    ctx.strokeStyle = DEFAULT_STROKE;
 }
 function _drawRawOsc(ctx,data,width,height){
     ctx.beginPath();

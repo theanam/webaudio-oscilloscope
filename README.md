@@ -17,7 +17,7 @@ yarn add webaudio-oscilloscope
 Or you can link this file in your HTML:
 
 ```html
-<script src="https://unpkg.com/webaudio-oscilloscope@3.1.4/dist/index.js"></script>
+<script src="https://unpkg.com/webaudio-oscilloscope@3.2.0/dist/index.js"></script>
 ```
 If you include the script in your HTML file, you'll get a global object called `_osc`. You can acces the functionalities like: `_osc.Oscilloscope`.
 
@@ -70,7 +70,7 @@ document.querySelector(".start").addEventListener("click",startOsc);
 
 ```js
 import {Oscilloscope} from "webaudio-oscilloscope";
- new Oscilloscope(AudioContext, AudioSource, CanvasElement, AudioDestination, [fft, init,primer])
+ new Oscilloscope(AudioContext, AudioSource, CanvasElement, AudioDestination, [fft, init,primer]);
 ```
 
 Argument | Required | Default | Description |
@@ -115,19 +115,23 @@ The Oscilloscope can be customized by using, the `init` and `primer` arguments i
 You can create a function like the one below and pass it in the constructor. In fact this is the default init function. You can do stuff like setting the default fill and stroke colors,setting line width etc. For example, to set the fill and stroke style of the canvas: 
 
 ```js
-function init(context, width, height){
+function customInit(context, width, height){
     ctx.fillStyle   = "#000";
     ctx.strokeStyle = "#0f0";
 }
+// Then Initiate the Oscilloscope like this:
+new Oscilloscope(AudioContext, AudioSource, CanvasElement, AudioDestination, 2042, customInit);
 ```
 
 #### primer() [Function]:
 This function gets called before every render. If you need to draw anything (a graph or maybe some values), you can do it here. For example: the default primer function fills the background with the default fill color(black):
 
 ```js
-function primer(ctx, width, height){
+function customPrimer(ctx, width, height){
     ctx.fillRect(0,0,width,height);
 }
+// Then Initiate the Oscilloscope like this:
+new Oscilloscope(AudioContext, AudioSource, CanvasElement, AudioDestination, 2042, null, customPrimer);
 ```
 For example: If you want to render your oscilloscope on a graph, try this primer function: 
 ```js
@@ -147,11 +151,13 @@ function fancyGraph(ctx,width,height){
     ctx.stroke();
     ctx.strokeStyle = backstrokeStyle;
 }
+// Then Initiate the Oscilloscope like this:
+new Oscilloscope(AudioContext, AudioSource, CanvasElement, AudioDestination, 2042, null, fancyGraph);
 ```
 both The function exacly gets 3 arguments, `context` (The canvas rendering context), `width` (the canvas width), `height` (the canvas height). You don't need to worry where these values will come from, just assume that they will be available in the function context.
 
 ## Plugins
-You can write plugin for this using the `init` and `primer` functions. 
+You can write plugin for this using the `init` and `primer` functions.
 
 ## Contributing:
 This package is released under the MIT license Feel free to contribute.
