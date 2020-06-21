@@ -1,6 +1,6 @@
 {
   "name": "webaudio-oscilloscope",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "keywords": [
     "webaudio",
     "oscilloscope",
@@ -17,7 +17,8 @@
     "audio recorder",
     "audio analyzer"
   ],
-  "main": "index.js",
+  "main": "dist/index.js",
+  "source": "index.js",
   "license": "MIT",
   "repository": {
     "type": "git",
