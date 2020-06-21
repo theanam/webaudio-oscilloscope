@@ -1,6 +1,6 @@
-const DEFAULT_FILL   = "#2d3436";
-const DEFAULT_STROKE = "#4cd137"; 
-const HLINE_COLOR    = "#7f8c8d";
+const DEFAULT_FILL   = "#111111";
+const DEFAULT_STROKE = "#11ff11"; 
+const HLINE_COLOR    = "#555555";
 function _initCvs(ctx, width, height){
     ctx.fillStyle   = DEFAULT_FILL;
     ctx.strokeStyle = DEFAULT_STROKE;
