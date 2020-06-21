@@ -7,6 +7,10 @@
 html,body{
     height: 100%;
 }
+h3{
+    max-width: 90vw;
+    text-align: center;
+}
 .container{
     display: flex;
     flex-direction: column;
@@ -15,9 +19,21 @@ html,body{
     margin-top: 100px;
 }
 .controls{
-    margin-top:1em;
+    margin-top: 1em;
     margin-bottom: 1em;
 }
 button{
     padding: 0.3em;
+}
+.status{
+    padding: 0.5em 1em 1em 1em;
+    font-size: 0.7em;
+    color: #444;
+    text-align: center;
+}
+.status.err{
+    color: #e74c3c;
+}
+.status.success{
+    color: #16a085;
 }
