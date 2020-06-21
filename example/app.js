@@ -1,4 +1,4 @@
-import {MediaStreamOscilloscope} from "../index";
+import {MediaStreamOscilloscope} from "../dist/index";
 function fancyGraph(ctx,width,height){
     let backstrokeStyle = ctx.strokeStyle;
     ctx.strokeStyle = "#444";

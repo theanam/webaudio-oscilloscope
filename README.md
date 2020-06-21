@@ -10,6 +10,14 @@ A highly customizable oscilloscope for web Audio that supports any source suppor
 ```bash
 yarn add webaudio-oscilloscope
 ```
+
+Or you can link this file in your HTML:
+
+```html
+<script src="https://unpkg.com/webaudio-oscilloscope@3.0.0/dist/index.js"></script>
+```
+If you include the script in your HTML file, you'll get a global object called `_osc`. You can acces the functionalities like: `_osc.Oscilloscope`.
+
 ### Example use: 
 First create a canvas element in your page: 
 ```html
@@ -19,7 +27,7 @@ First create a canvas element in your page:
 In your JavaScript File:
 
 ```js
-import Oscilloscope,{createAudioContext} from "webaudio-oscilloscope";
+import {Oscilloscope, createAudioContext} from "webaudio-oscilloscope";
 function startOsc(){
     let ctx = createAudioContext();
     let cvs = document.querySelector(".osc");
@@ -56,7 +64,7 @@ document.querySelector(".start").addEventListener("click",startOsc);
 ### Constructor: 
 
 ```js
-import Oscilloscope from "webaudio-oscilloscope";
+import {Oscilloscope} from "webaudio-oscilloscope";
  new Oscilloscope(AudioContext, AudioSource, CanvasElement, AudioDestination, [fft, init,primer])
 ```
 

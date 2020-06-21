@@ -57,7 +57,7 @@ function MediaStreamOscilloscope(mediaStream, canvasElement, audioDest = null, a
     return new Oscilloscope(ctx, src, canvasElement, audioDest, analyzerFFT, canvasInitFunction, drawingPrimerFunction);
 }
 export {
-    Oscilloscope as default,
+    Oscilloscope,
     MediaStreamOscilloscope,
     createAudioContext
 }
