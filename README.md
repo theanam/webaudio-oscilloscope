@@ -7,7 +7,7 @@ A highly customizable oscilloscope for web Audio that supports any source suppor
 
 ## ✨[Try The Live Demo](https://theanam.github.io/webaudio-oscilloscope/)
 
-> If you are using v1 and planning to move to v2, the constructor changes a little bit.
+> If you are using v1 and planning to move to v2 or v3, the constructor changes a little bit.
 
 ### Installation
 ```bash
@@ -17,7 +17,7 @@ yarn add webaudio-oscilloscope
 Or you can link this file in your HTML:
 
 ```html
-<script src="https://unpkg.com/webaudio-oscilloscope@3.1.3/dist/index.js"></script>
+<script src="https://unpkg.com/webaudio-oscilloscope@3.1.4/dist/index.js"></script>
 ```
 If you include the script in your HTML file, you'll get a global object called `_osc`. You can acces the functionalities like: `_osc.Oscilloscope`.
 
