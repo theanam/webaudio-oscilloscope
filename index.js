@@ -1,11 +1,10 @@
 "use strict";
-import * as _ct from "./tools/canvas_tools";
-function Oscilloscope(audioContext, audioSource, canvasElement, audioDest = null, analyzerFFT = 2048, canvasInitFunction = null, drawingPrimerFunction = null){
+import {Renderer} from "./tools/canvas_tools";
+
+function Oscilloscope(audioContext, audioSource, renderer, audioDest = null, analyzerFFT = 2048){
         this.actx   = audioContext;
         this.FFT    = analyzerFFT;
-        this.cvs    = canvasElement;
-        this.init   = canvasInitFunction    || _ct._initCvs;
-        this.primer = drawingPrimerFunction || _ct._primer;
+        this.renderer = renderer;
         this.paused = false;
         this.anl    = this.actx.createAnalyser();
         this.ctx    = audioContext;
@@ -16,18 +15,14 @@ function Oscilloscope(audioContext, audioSource, canvasElement, audioDest = null
         this.src.connect(this.anl);
         if(this.dest) this.anl.connect(this.dest);
         // Set up Canvas
-        let {width = 300, height = 150} = this.cvs;
-        this.WIDTH  = width;
-        this.HEIGHT = height;
         this.u8ar = new Uint8Array(this.FFT);
-        this.cctx = this.cvs.getContext("2d");
-        this.init(this.cctx,this.WIDTH,this.HEIGHT);
+        this.renderer.init();
         this.draw = () =>{
             if(!this.paused) requestAnimationFrame(this.draw);
-            this.cctx.clearRect(0 , 0, this.WIDTH, this.HEIGHT);
-            this.primer(this.cctx, this.WIDTH, this.HEIGHT);
+            this.renderer.reset();
+            this.renderer.primer();
             this.anl.getByteTimeDomainData(this.u8ar);
-            _ct._drawRawOsc(this.cctx, this.u8ar, this.WIDTH, this.HEIGHT);
+            this.renderer.osc(this.u8ar);
         }
         this.start = () => {
             this.paused = false;
@@ -40,9 +35,9 @@ function Oscilloscope(audioContext, audioSource, canvasElement, audioDest = null
             this.paused = true;
             requestAnimationFrame(()=>{
                 this.u8ar = new Uint8Array(this.FFT).fill(0);
-                this.cctx.clearRect(0 , 0, this.WIDTH, this.HEIGHT);
-                this.primer(this.cctx, this.WIDTH, this.HEIGHT);
-                _ct._drawRawOsc(this.cctx, this.u8ar, this.WIDTH, this.HEIGHT);
+                this.renderer.reset();
+                this.renderer.primer();
+                this.renderer.osc(this.u8ar);
             });
         }
 }
@@ -51,10 +46,10 @@ function createAudioContext(){
     return new (window.AudioContext || window.webkitAudioContext)();
 }
 
-function MediaStreamOscilloscope(mediaStream, canvasElement, audioDest = null, analyzerFFT = 2048, canvasInitFunction = null, drawingPrimerFunction = null){
+function MediaStreamOscilloscope(mediaStream, renderer, audioDest = null, analyzerFFT = 2048){
     let ctx = createAudioContext();
     let src = ctx.createMediaStreamSource(mediaStream);
-    return new Oscilloscope(ctx, src, canvasElement, audioDest, analyzerFFT, canvasInitFunction, drawingPrimerFunction);
+    return new Oscilloscope(ctx, src, renderer, audioDest, analyzerFFT, renderer);
 }
 
 function getUserMedia(constraints){
@@ -78,5 +73,6 @@ export {
     Oscilloscope,
     MediaStreamOscilloscope,
     createAudioContext,
-    getUserMedia
+    getUserMedia,
+    Renderer
 }
